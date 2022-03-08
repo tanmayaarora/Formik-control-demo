@@ -4,7 +4,9 @@ import * as Yup from "yup";
 import FormikControl from "./FormikControl";
 
 function FormikContainer() {
-    const initialValues = {email:'',description:'', selectOption:'', radioOption:'', checkboxOption:[]};
+    const initialValues = {
+        email:'',description:'', selectOption:'', radioOption:'', checkboxOption:[], meetingDate:null
+    };
     const dropdownOptions = [
         {key: 'Select an option', value:''},
         {key: 'Option 1', value:'option1'},
@@ -28,7 +30,8 @@ function FormikContainer() {
         description:Yup.string().required("Description is required"),
         selectOption:Yup.string().required("Option must be selected"),
         radioOption:Yup.string().required("Option must be selected"),
-        checkboxOption:Yup.array().required("Preference must be selected")
+        checkboxOption:Yup.array().required("Preference must be selected"),
+        meetingDate:Yup.date().required().nullable()
     });
     const onSubmit = values => alert("Form data ", values); // Will change it to console.log possibly for all branches
     return (
@@ -43,6 +46,7 @@ function FormikContainer() {
                         <FormikControl control='select' label='Select primary topic' name='selectOption' options={dropdownOptions}/>
                         <FormikControl control='radio' label='Select secondary topic' name='radioOption' options={radioOptions}/>
                         <FormikControl control='checkbox' label='Select your interest(s)' name='checkboxOption' options={checkboxOptions}/>
+                        <FormikControl control='date' label='Pick a date' name='meetingDate'/>
                         <button type="submit">Submit</button>
                     </Form>
                 )
