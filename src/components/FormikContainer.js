@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import FormikControl from "./FormikControl";
 
 function FormikContainer() {
-    const initialValues = {email:'',description:'', selectOption:'', radioOption:''};
+    const initialValues = {email:'',description:'', selectOption:'', radioOption:'', checkboxOption:[]};
     const dropdownOptions = [
         {key: 'Select an option', value:''},
         {key: 'Option 1', value:'option1'},
@@ -16,11 +16,19 @@ function FormikContainer() {
         {key: 'Option 2', value:'rOption2'},
         {key: 'Option 3', value:'rOption3'}
     ]
+    const checkboxOptions = [
+        {key: 'Automation', value:'cOption1'},
+        {key: 'CI/CD', value:'cOption2'},
+        {key: 'DevOps', value:'cOption3'},
+        {key: 'QA', value:'cOption4'},
+        {key: 'React', value:'cOption5'}
+    ]
     const validationSchema = Yup.object({
         email:Yup.string().required("Email is required"),
         description:Yup.string().required("Description is required"),
         selectOption:Yup.string().required("Option must be selected"),
-        radioOption:Yup.string().required("Option must be selected")
+        radioOption:Yup.string().required("Option must be selected"),
+        checkboxOption:Yup.array().required("Preference must be selected")
     });
     const onSubmit = values => alert("Form data ", values); // Will change it to console.log possibly for all branches
     return (
@@ -34,6 +42,7 @@ function FormikContainer() {
                         <FormikControl control='textarea' label='Description' name='description'/>
                         <FormikControl control='select' label='Select primary topic' name='selectOption' options={dropdownOptions}/>
                         <FormikControl control='radio' label='Select secondary topic' name='radioOption' options={radioOptions}/>
+                        <FormikControl control='checkbox' label='Select your interest(s)' name='checkboxOption' options={checkboxOptions}/>
                         <button type="submit">Submit</button>
                     </Form>
                 )
